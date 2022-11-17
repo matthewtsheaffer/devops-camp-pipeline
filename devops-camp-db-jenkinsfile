@@ -70,11 +70,11 @@ pipeline {
               }
            }
         }
+    }
     post {
         cleanup {
             echo "Clean workspace"
             sh 'rm -rf .git ./*'
         }
     }
-}
 }
