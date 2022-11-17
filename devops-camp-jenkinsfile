@@ -53,6 +53,15 @@ pipeline {
                 }
             }
         }
+stage('Security scanning') {
+            steps {
+                  withCredentials([usernamePassword(credentialsId: 'msheaffer-harbor-auth', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+                      echo "Scanning $APP_IMAGE_NAME image"
+                      sh 'python harbor_scanner.py -i $APP_IMAGE_NAME -r $HARBOR_REGISTRY -p $HARBOR_PROJECT -c ${USERNAME}:${PASSWORD}'
+                  }
+            }
+        }
+        //Removed the Database code and moved it to the db jenkins file
         // stage('Database docker build') {
         //     steps {
         //         echo "Building database image"
